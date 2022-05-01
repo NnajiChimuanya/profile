@@ -1,4 +1,5 @@
 const Router = require("express").Router()
+<<<<<<< HEAD
 const passport = require("passport")
 const GitHubStrategy = require('passport-github').Strategy
 
@@ -45,5 +46,10 @@ Router.get("/auth/github/callback", passport.authenticate("github", { failureRed
 
 
 
+=======
+
+
+Router.get("/", (req, res) => res.render("signup"))
+>>>>>>> master
 
 module.exports = Router
