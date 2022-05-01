@@ -50,17 +50,17 @@ function(token, tokenSecret, profile, cb) {
 
 
 
-// const isAuthenticated = (req, res, next) => {
-//   if(req.user) {
-//     next()
-//   } else {
-//     res.redirect("login")
-//   }
-// }
+const isAuthenticated = (req, res, next) => {
+  if(req.user) {
+    next()
+  } else {
+    res.redirect("login")
+  }
+}
 
 
 
-Router.get("/",  (req, res) => res.send("Logged in"))
+Router.get("/", isAuthenticated,  (req, res) => res.send("Logged in"))
 
 Router.get("/login", (req, res) => res.render("signup"))
 
