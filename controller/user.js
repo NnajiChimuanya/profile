@@ -3,6 +3,8 @@ const passport = require("passport")
 const GitHubStrategy = require('passport-github')
 const TwitterStrategy = require("passport-twitter")
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+
 
 require("dotenv").config()
 //setting up github strategy
@@ -44,6 +46,23 @@ function(token, tokenSecret, profile, cb) {
 }
 ));
 
+
+//linkedin
+passport.use(new LinkedInStrategy({
+  clientID: process.env.LINKEDIN_CLIENTID,
+  clientSecret: process.env.LINKEDIN_CLIENTSECRET,
+  callbackURL: process.env.LINKEDIN_CALLBACK,
+  scope: ['r_emailaddress', 'r_liteprofile'],
+}, function(accessToken, refreshToken, profile, done) {
+  // asynchronous verification, for effect...
+  process.nextTick(function () {
+    // To keep the example simple, the user's LinkedIn profile is returned to
+    // represent the logged-in user. In a typical application, you would want
+    // to associate the LinkedIn account with a user record in your database,
+    // and return that user instead.
+    return done(null, profile);
+  });
+}));
 
 
 
@@ -92,6 +111,19 @@ Router.get('/auth/google/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
 });
+
+
+Router.get('/auth/linkedin',
+  passport.authenticate('linkedin', { state: 'SOME STATE'  }),
+  function(req, res){
+    // The request will be redirected to LinkedIn for authentication, so this
+    // function will not be called.
+});
+
+Router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
 
 
 
