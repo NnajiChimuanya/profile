@@ -2,6 +2,7 @@ const Router = require("express").Router()
 const passport = require("passport")
 const GitHubStrategy = require('passport-github')
 const TwitterStrategy = require("passport-twitter")
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 require("dotenv").config()
 //setting up github strategy
@@ -13,6 +14,19 @@ passport.use(new GitHubStrategy({
 function(accessToken, refreshToken, profile, cb) {
  console.log(profile)
  cb(null, profile)
+}
+));
+
+
+//google
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENTKEY,
+  clientSecret: process.env.GOOGLE_CLIENTSECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK
+},
+function(accessToken, refreshToken, profile, cb) {
+  console.log(profile)
+  cb(null, profile)
 }
 ));
 
@@ -59,10 +73,21 @@ Router.get('/auth/github/callback',
     res.redirect('/');
 });
 
+
 Router.get('/auth/twitter', passport.authenticate('twitter'));
 
 Router.get('/auth/twitter/callback', 
   passport.authenticate('twitter', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+});
+
+
+Router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+Router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
