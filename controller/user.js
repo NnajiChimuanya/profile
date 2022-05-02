@@ -24,7 +24,7 @@ passport.use(new GitHubStrategy({
 },
 function(accessToken, refreshToken, profile, cb) {
  console.log(profile)
- User.findOne({clientID : profile.id}, async (err, user) => {
+ User.findOne({clientId : profile.id}, async (err, user) => {
   if(err) throw err
 
   if(user !== null) {
@@ -53,7 +53,7 @@ passport.use(new GoogleStrategy({
 },
 function(accessToken, refreshToken, profile, done) {
   console.log(profile)
-  User.findOne({clientID : profile.id}, async (err, user) => {
+  User.findOne({clientId : profile.id}, async (err, user) => {
     if(err) throw err
   
     if(user !== null) {
@@ -84,7 +84,7 @@ passport.use(new TwitterStrategy({
 },
 function(token, tokenSecret, profile, done) {
  console.log(profile)
- User.findOne({clientID : profile.id}, async (err, user) => {
+ User.findOne({clientId : profile.id}, async (err, user) => {
   if(err) throw err
 
   if(user !== null) {
@@ -114,7 +114,7 @@ passport.use(new LinkedInStrategy({
 }, function(accessToken, refreshToken, profile, done) {
   // asynchronous verification, for effect...
   process.nextTick(function () {
-    User.findOne({clientID : profile.id}, async (err, user) => {
+    User.findOne({clientId : profile.id}, async (err, user) => {
       if(err) throw err
     
       if(user !== null) {
