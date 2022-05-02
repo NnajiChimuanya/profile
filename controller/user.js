@@ -33,7 +33,8 @@ function(accessToken, refreshToken, profile, cb) {
      const newUser = await new User({
        name : profile.displayName,
        clientId : profile.id,
-       image : profile.photos[0].value
+       image : profile.photos[0].value,
+       provider : profile.provider
      })
      newUser.save((err, user) => {
        if(err) throw err
@@ -62,7 +63,8 @@ function(accessToken, refreshToken, profile, done) {
        const newUser = await new User({
          name : profile.displayName,
          clientId : profile.id,
-         image : profile.photos[0].value
+         image : profile.photos[0].value,
+         provider : profile.provider
        })
        newUser.save((err, user) => {
          if(err) throw err
@@ -93,7 +95,8 @@ function(token, tokenSecret, profile, done) {
      const newUser = await new User({
        name : profile.displayName,
        clientId : profile.id,
-       image : profile.photos[0].value
+       image : profile.photos[0].value,
+       provider : profile.provider
      })
      newUser.save((err, user) => {
        if(err) throw err
@@ -123,7 +126,8 @@ passport.use(new LinkedInStrategy({
          const newUser = await new User({
            name : profile.displayName,
            clientId : profile.id,
-           image : profile.photos[0].value
+           image : profile.photos[0].value,
+           provider : profile.provider
          })
          newUser.save((err, user) => {
            if(err) throw err
