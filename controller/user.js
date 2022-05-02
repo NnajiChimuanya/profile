@@ -79,7 +79,7 @@ const isAuthenticated = (req, res, next) => {
 
 
 
-Router.get("/", isAuthenticated,  (req, res) => res.send("Logged in"))
+Router.get("/", isAuthenticated,  (req, res) => res.render("home"))
 
 Router.get("/login", (req, res) => res.render("signup"))
 
