@@ -1,9 +1,18 @@
 const Router = require("express").Router()
+const { default: mongoose } = require("mongoose");
 const passport = require("passport")
 const GitHubStrategy = require('passport-github')
 const TwitterStrategy = require("passport-twitter")
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+const User = require("../model/User")
+
+try {
+  mongoose.connect("mongodb+srv://Muanyachi:Muanyachi50@profile.yc1mj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true , useUnifiedTopology: true})
+  console.log("connection successful")
+} catch (error) {
+  if(err) throw err
+}
 
 
 require("dotenv").config()
