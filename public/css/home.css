@@ -45,7 +45,7 @@ p {
 .profile-card {
 background: #FFB300;
 width: 56px;
-height: 70px;
+height: 56px;
 position: absolute;
 left: 50%;
 top: 50%;
@@ -121,7 +121,7 @@ height: 20px;
 }
 .profile-card .profile-bio {
   width: 175px;        
-  height: 180px;
+  height: 120px;
   display: inline-block;
   float: right;
   padding: 50px 20px 30px 20px;
