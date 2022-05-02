@@ -150,7 +150,7 @@ const isAuthenticated = (req, res, next) => {
 
 
 Router.get("/", isAuthenticated,  (req, res) => {
-  User.findOne({clientID : req.user}, (err, user) => {
+  User.findOne({clientId : req.user}, (err, user) => {
     if(err) throw err
     res.render("home", {user : user})
   })
