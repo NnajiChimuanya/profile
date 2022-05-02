@@ -49,9 +49,25 @@ passport.use(new TwitterStrategy({
   consumerSecret: process.env.TWITTER_KEYSECRET,
   callbackURL: process.env.TWITTER_CALLBACK
 },
-function(token, tokenSecret, profile, cb) {
+function(token, tokenSecret, profile, done) {
  console.log(profile)
- cb(null, profile)
+ User.findOne({clientID : profile.id}, async (err, user) => {
+  if(err) throw err
+
+  if(user !== null) {
+    done(null, profile)
+  } else {
+     const newUser = await new User({
+       name : profile.displayName,
+       clientId : profile.id,
+       image : profile.photos[0].value
+     })
+     newUser.save((err, user) => {
+       if(err) throw err
+     })
+     done(null, profile)
+  }
+})
 }
 ));
 
