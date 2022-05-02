@@ -24,7 +24,23 @@ passport.use(new GitHubStrategy({
 },
 function(accessToken, refreshToken, profile, cb) {
  console.log(profile)
- cb(null, profile)
+ User.findOne({clientID : profile.id}, async (err, user) => {
+  if(err) throw err
+
+  if(user !== null) {
+    done(null, profile)
+  } else {
+     const newUser = await new User({
+       name : profile.displayName,
+       clientId : profile.id,
+       image : profile.photos[0].value
+     })
+     newUser.save((err, user) => {
+       if(err) throw err
+     })
+     done(null, profile)
+  }
+})
 }
 ));
 
@@ -35,9 +51,26 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENTSECRET,
   callbackURL: process.env.GOOGLE_CALLBACK
 },
-function(accessToken, refreshToken, profile, cb) {
+function(accessToken, refreshToken, profile, done) {
   console.log(profile)
-  cb(null, profile)
+  User.findOne({clientID : profile.id}, async (err, user) => {
+    if(err) throw err
+  
+    if(user !== null) {
+      done(null, profile)
+    } else {
+       const newUser = await new User({
+         name : profile.displayName,
+         clientId : profile.id,
+         image : profile.photos[0].value
+       })
+       newUser.save((err, user) => {
+         if(err) throw err
+       })
+       done(null, profile)
+    }
+  })
+  
 }
 ));
 
@@ -81,11 +114,23 @@ passport.use(new LinkedInStrategy({
 }, function(accessToken, refreshToken, profile, done) {
   // asynchronous verification, for effect...
   process.nextTick(function () {
-    // To keep the example simple, the user's LinkedIn profile is returned to
-    // represent the logged-in user. In a typical application, you would want
-    // to associate the LinkedIn account with a user record in your database,
-    // and return that user instead.
-    return done(null, profile);
+    User.findOne({clientID : profile.id}, async (err, user) => {
+      if(err) throw err
+    
+      if(user !== null) {
+        done(null, profile)
+      } else {
+         const newUser = await new User({
+           name : profile.displayName,
+           clientId : profile.id,
+           image : profile.photos[0].value
+         })
+         newUser.save((err, user) => {
+           if(err) throw err
+         })
+         done(null, profile)
+      }
+    })
   });
 }));
 
