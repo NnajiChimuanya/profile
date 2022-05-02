@@ -200,6 +200,11 @@ Router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
   failureRedirect: '/login'
 }));
 
+Router.get("/logout", (req, res) => {
+  req.logOut()
+  res.redirect("/login")
+})
+
 
 
 
