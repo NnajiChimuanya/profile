@@ -516,3 +516,11 @@ background: #FFFFFF;
   }
 }
 
+header h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Radio Canada', sans-serif;
+}
+header h2 {
+  font-family: 'Radio Canada', sans-serif;
+  font-family: 'Roboto Mono', monospace;
+}
