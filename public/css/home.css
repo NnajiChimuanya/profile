@@ -121,7 +121,7 @@ height: 20px;
 }
 .profile-card .profile-bio {
   width: 175px;        
-  height: 120px;
+  height: 180px;
   display: inline-block;
   float: right;
   padding: 50px 20px 30px 20px;
@@ -140,7 +140,7 @@ background: #FFFFFF;
   margin: 0px;
   padding: 15px 20px;
 background: #FFFFFF;
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center;
   opacity: 0;
   -webkit-box-sizing: border-box;
