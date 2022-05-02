@@ -524,3 +524,8 @@ header h2 {
   font-family: 'Radio Canada', sans-serif;
   font-family: 'Roboto Mono', monospace;
 }
+
+.profile-bio p {
+  font-family: 'Radio Canada', sans-serif;
+  font-family: 'Roboto Mono', monospace; 
+}
