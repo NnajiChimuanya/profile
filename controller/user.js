@@ -8,7 +8,7 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const User = require("../model/User")
 
 try {
-  mongoose.connect(process.env.database, { useNewUrlParser: true , useUnifiedTopology: true})
+  mongoose.connect(`mongodb+srv://Muanyachi:Muanyachi50@profile.yc1mj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, { useNewUrlParser: true , useUnifiedTopology: true})
   console.log("connection successful")
 } catch (error) {
   if(err) throw err
